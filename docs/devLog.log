@@ -17,8 +17,9 @@
 
 @21-10-2015
 {
-	* At this day, user registration class was done.
-	* We have, so far, 4 classes. Three of my own. Being those: User, Regex and Look.
-	* The forth is the Database class, which is very well documented on it's own.
+	* At this day, user registration class was done. Login class is also done. I can now login, watch for
+	* the user status, limit the access of each page etc.
+	* We have, so far, 6 classes. Five of my own. Being those: User, Regex, Look, Watchers and Login.
+	* The sixth is the Database class, which is very well documented on it's own.
 	* TODO: Validate also with a registration ticket.	
 }
