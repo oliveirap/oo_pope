@@ -23,6 +23,7 @@ define("DIR_JS", DIR_BASE . "assets/js/");
 define("DIR_LIB", DIR_BASE . "assets/lib/");
 define("DIR_CLASSES", DIR_SRC . "classes/");
 define("DIR_PARTIALS", DIR_BASE . "assets/partials/");
+define("DIR_WYSIHTML", DIR_BASE  . "assets/lib/wysihtml/");
 //ARQUIOS
 define("FILE_AUTOLOADER", DIR_SRC . "autoloader.php");
 define("FILE_HEADER", DIR_PARTIALS . "header.php");

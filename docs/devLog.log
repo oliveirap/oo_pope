@@ -30,3 +30,10 @@
 	* using the chained method did not worked for ticket check. I had to use the query($sql) method.
 	*
 }
+
+@26-10-2015
+{
+	* At this day, question class development started (Doc on the file).
+	* Will use WYSIHTML (v0.5.0 - beta14) for the question text input doc on http://wysihtml.com/;
+	* Will use HTML Purifier 4.7 for the input sanitizing. This was recommended by WYSIHTML page itself.
+}
