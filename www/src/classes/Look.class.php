@@ -57,6 +57,37 @@ class Look
 	}
 
 	/**
+	 * Checks if the ticket is good for registration
+	 * @uses Database::, Regex::validateTicket()
+	 * @param $ticket Ticket to be checked on database
+	 * @return bool(false) if can't be used, bool(true) elsewise
+	 */
+	public function checkTicket($ticket)
+	{
+		if(!empty($ticket) && Regex::validateTicket($ticket))
+		{
+			$db = Conectar();
+			$sql = "SELECT * FROM pp_regcode WHERE cod = '$ticket'";
+			$data = $db->query($sql)->fetch();
+			$lim = $data[0]['lim'];
+			$reg = $data[0]['reg'];
+			if($reg < $lim)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
+	/**
 	 * Checks the status of the user
 	 * @uses Database:: functions
 	 * @param $userkey Userkey of the user to check for

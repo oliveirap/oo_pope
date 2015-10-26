@@ -72,4 +72,37 @@
 		return sha1(rand().time());
 	}
 
+	/**
+	 * TRIMS the name on the first space back
+	 * @param $name String
+	 * @return $name trimmed
+	 */
+	function firstName($name)
+	{
+		$i = strpos($name, " ");
+		if($i === false)
+		{
+			return $name;
+		}
+		else
+		{
+			return substr($name, 0, $i);
+		}
+	}
+
+	/**
+	 * Returns the user info stored on $_SESSION['userInfo']
+	 * @param $field The field to return the value
+	 * @return $value the value on the field
+	 */
+	function getInfo($field)
+	{
+		if(isset($_SESSION['userInfo'][$field]) && !empty($_SESSION['userInfo'][$field]))
+		{
+			return $_SESSION['userInfo'][$field];
+		}
+	}
+	
+	
+
 ?>

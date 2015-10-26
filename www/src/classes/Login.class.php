@@ -13,7 +13,7 @@ class Login extends User
 {
 	public function __construct($username, $password)
 	{
-		$this->user = addslashes($username);
+		$this->user = escape($username);
 		$this->pass = encriptPass($password);
 	}
 

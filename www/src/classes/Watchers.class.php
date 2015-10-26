@@ -30,9 +30,28 @@ class Watchers
 	{
 		if(!$this->isLogged())
 		{
-			$this->redirect("http://facebook.com");
+			$this->redirect(URL_BASE);
 		}
 	}
+
+	/**
+	 * Restrict the access for only admin users
+	 */
+	public function adminOnly()
+	{
+		if(!$this->isLogged())
+		{
+			$this->redirect(URL_BASE);
+		}
+		else
+		{
+			if($_SESSION['userInfo']['type'] != 3)
+			{
+				$this->redirect(URL_BASE);
+			}
+		}
+	}
+	
 
 	/**
 	 * Restrict the access for only non-logged users
@@ -42,7 +61,7 @@ class Watchers
 	{
 		if($this->isLogged())
 		{
-			$this->redirect("http://youtube.com");
+			$this->redirect(URL_PAINEL);
 		}
 	}
 	
@@ -70,6 +89,36 @@ class Watchers
 			}
 		}
 	}
+
+	/**
+	 * Watch for logout URL
+	 * @uses $this->logout();
+	 */
+	public function watchLogout()
+	{	
+		if(isset($_GET['logout']))
+		{
+			$this->logout();
+		}
+	}
+
+	/**
+	 * Watch for Login post attempt
+	 * @uses Login::
+	 */
+	public function watchLogin()
+	{
+		if(!!getPost('login'))
+		{
+			$login = new Login(getPost('username'), getPost('password'));
+			$canLogin = $login->tryLogin();
+			if(!$canLogin)
+			{
+				echo "Usuário e/ou senha incorreto.";
+			}
+		}
+	}
+	
 
 	/**
 	 * Logout the user.

@@ -6,14 +6,14 @@ define("DB_USER", "root");
 define("DB_PASS", "");
 define("DB_PREFIX", "pp_");
 define("DB_CHARSET", "utf8");
-
 //URLS
-define("URL_BASE", "http://pdev.com/oo_pope/www/");
+define("URL_BASE", "http://pope.dev:8080/oo_pope/www/");
 //views
 define("URL_VIEWS", URL_BASE . "views/");
 define("URL_REGISTRO", URL_VIEWS . "registro/");
 define("URL_PAINEL", URL_VIEWS . "painel/");
-
+define("URL_NEW_QUESTION", URL_VIEWS . "exercicios/cadastrar.php");
+define("URL_ANSWER_TEST", URL_VIEWS . "exercicios/")/
 //DIRS
 define("DIR_BASE", $_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/");
 define("DIR_SRC", DIR_BASE . "src/");
@@ -27,4 +27,5 @@ define("DIR_PARTIALS", DIR_BASE . "assets/partials/");
 define("FILE_AUTOLOADER", DIR_SRC . "autoloader.php");
 define("FILE_HEADER", DIR_PARTIALS . "header.php");
 define("FILE_FOOTER", DIR_PARTIALS . "footer.php");
+//$_SESSION
 ?>

@@ -22,18 +22,20 @@ class User
 	protected $userkey;
 	protected $type;
 	protected $status;
+	protected $ticket;
 	private   $msg;
 
 	/** Define atributos ao instânciar a classe **/ 
-	public function __construct($name = null, $email = null, $user = null, $pass = null, $type = 1, $status = 1)
+	public function __construct($name = null, $email = null, $user = null, $pass = null, $type = 1, $status = 1, $ticket = null)
 	{
-		$this->name    = addslashes($name);
-		$this->email   = addslashes($email);
-		$this->user    = addslashes($user);
+		$this->name    = escape($name);
+		$this->email   = escape($email);
+		$this->user    = escape($user);
 		$this->pass    = $pass;
 		$this->userkey = generateKey();
-		$this->type    = addslashes($type);
-		$this->status  = addslashes($status);
+		$this->type    = escape($type);
+		$this->status  = escape($status);
+		$this->ticket  = escape($ticket);
 	}
 
 	// Gets
@@ -52,6 +54,7 @@ class User
 			"userkey" => "",
 			"type"    => "",
 			"status"  => "",
+			"ticket"  => ""
 			);
 		
 		if(empty($this->name))
@@ -104,6 +107,10 @@ class User
 		if($this->status < 0 || $this->status > 1)
 		{
 			$err["status"] = "Status do usuário inválido.";
+		}
+		if(!Look::checkTicket($this->ticket))
+		{
+			$err["ticket"] = "Ticket indisponível.";
 		}
 
 		if(array_filter($err))

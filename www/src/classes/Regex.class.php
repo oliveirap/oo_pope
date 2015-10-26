@@ -19,7 +19,7 @@ class Regex{
 		return preg_match($regex, $senha);
 	}
 	public function validateTicket($ticket){
-		$regex = "/^[a-z0-9A-Z]{6}$/";
+		$regex = "/^[a-z0-9A-Z]{12}$/";
 		return preg_match($regex, $ticket);
 	}
 	public function validateName($nome){

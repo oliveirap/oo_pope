@@ -9,10 +9,10 @@
 #                                                                          #
 ############################################################################
 	
-	@Author: Pedro Oliveira
-	@Since:  21-10-2015
-	@Project: POPE - Plataform for Online Problems and Exercises 
-	@Using: OOPHP, HTML, SASS, JQUERY
+	@Author  : Geraldo Felipe, Samuel Gomes, Pedro Henrique, Tuane Peres
+	@Since   : 21-10-2015
+	@Project : POPE - Plataform for Online Problems and Exercises 
+	@Using   : OOPHP, HTML, SASS, JQUERY
 
 
 @21-10-2015
@@ -21,5 +21,12 @@
 	* the user status, limit the access of each page etc.
 	* We have, so far, 6 classes. Five of my own. Being those: User, Regex, Look, Watchers and Login.
 	* The sixth is the Database class, which is very well documented on it's own.
-	* TODO: Validate also with a registration ticket.	
+	* TODO: Validate also with a registration ticket. (Done @23-10-2015)
+}
+
+@23-10-2015
+{
+	* At this day, i detected a problem with the Database class. I don't know if it was my error, but
+	* using the chained method did not worked for ticket check. I had to use the query($sql) method.
+	*
 }
