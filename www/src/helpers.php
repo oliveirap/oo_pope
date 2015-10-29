@@ -115,7 +115,7 @@
 	 */
 	function getInfo($field)
 	{
-		if(isset($_SESSION['userInfo'][$field]) && !empty($_SESSION['userInfo'][$field]))
+		if(!empty($_SESSION['userInfo'][$field]))
 		{
 			return $_SESSION['userInfo'][$field];
 		}

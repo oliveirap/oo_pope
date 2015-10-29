@@ -16,7 +16,7 @@ class Watchers
 	 * Redirects to a certain page and kills the system.
 	 * @param $location URL to me redirected.
 	 */
-	private function redirect($location)
+	public function redirect($location)
 	{
 		header("location:" . $location);
 		die();
@@ -132,9 +132,10 @@ class Watchers
 				$question = new Question();
 				$tags = isset($_POST['question-tags']) ? $_POST['question-tags'] : null;
 				$body = isset($_POST['question-body']) ? $_POST['question-body'] : null;
+				$difficulty = isset($_POST['question-difficulty']) ? $_POST['question-difficulty'] : null;
 				$theAnswer = isset($_POST['question-answer']) ? $_POST['question-answer'] : null;
 				$answers = isset($_POST['answer-text']) ? $question->encodeAnswer($_POST['answer-text']) : null;
-				$wasSet = $question->trySetQuestion($tags, $body, $answers, $theAnswer);
+				$wasSet = $question->trySetQuestion($tags, $difficulty, $body, $answers, $theAnswer);
 				return $wasSet;
 			}
 		}

@@ -34,22 +34,31 @@ $watcher->watchLogout();
     <textarea id="question-body" placeholder="Insira o enunciado da questão" name="question-body" autofocus><?php echo isset($_POST['question-body']) ? $_POST['question-body'] : null ?></textarea>
 	<br>
 	<br>
-	<input type="radio" value="alt-1" name="question-answer"><input type="text" name="answer-text[]" <?php echo isset($_POST['answer-text'][0]) ? "value='" . $_POST['answer-text'][0] . "'" : null ?> placeholder="Corpo da resposta"></input>
+	<input type="radio" value="alt-1" <?php if(getPost('question-answer') == 'alt-1') echo "checked" ?> name="question-answer"><input type="text" name="answer-text[]" <?php echo isset($_POST['answer-text'][0]) ? "value='" . $_POST['answer-text'][0] . "'" : null ?> placeholder="Corpo da resposta"></input>
 	<br>
 	<br>
-	<input type="radio" value="alt-2" name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][1]) ? "value='" . $_POST['answer-text'][1] . "'" : null ?>></input>
+	<input type="radio" value="alt-2" <?php if(getPost('question-answer') == 'alt-2') echo "checked" ?> name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][1]) ? "value='" . $_POST['answer-text'][1] . "'" : null ?>></input>
 	<br>
 	<br>
-	<input type="radio" value="alt-3" name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][2]) ? "value='" . $_POST['answer-text'][2] . "'" : null ?>></input>
+	<input type="radio" value="alt-3" <?php if(getPost('question-answer') == 'alt-3') echo "checked" ?> name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][2]) ? "value='" . $_POST['answer-text'][2] . "'" : null ?>></input>
 	<br>
 	<br>
-	<input type="radio" value="alt-4" name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][3]) ? "value='" . $_POST['answer-text'][3] . "'" : null ?>></input>
+	<input type="radio" value="alt-4" <?php if(getPost('question-answer') == 'alt-4') echo "checked" ?> name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][3]) ? "value='" . $_POST['answer-text'][3] . "'" : null ?>></input>
 	<br>
 	<br>
-	<input type="radio" value="alt-5" name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][4]) ? "value='" . $_POST['answer-text'][4] . "'" : null ?>></input>
+	<input type="radio" value="alt-5" <?php if(getPost('question-answer') == 'alt-5') echo "checked" ?> name="question-answer"><input type="text" name="answer-text[]" placeholder="Corpo da resposta" <?php echo isset($_POST['answer-text'][4]) ? "value='" . $_POST['answer-text'][4] . "'" : null ?>></input>
 	<br>
 	<br>
 	<input type="text" name="question-tags" placeholder="Tags" <?php echo isset($_POST['question-tags']) ? "value='" . $_POST['question-tags'] . "'" : null ?>>
+	<br>
+	<br>
+	<label>Dificuldade</label>
+	<br>
+	<label><input type="radio" value="1" name="question-difficulty"> Fácil </label>
+	<br>
+	<label><input type="radio" value="2" name="question-difficulty"> Médio </label>
+	<br>
+	<label><input type="radio" value="3" name="question-difficulty"> Dificil </label>
 	<br>
 	<br>
 	<input type="submit" name="submitNewQuestion" value="Cadastrar">

@@ -3,3 +3,6 @@
 <a href="?logout">LogOut</a>
 <br>
 <a href="<?php echo URL_ANSWER_TEST ?>">Responder Lista</a>
+<br>
+<a href="<?php echo URL_NEW_TEST ?>">Nova Lista</a>
+<br>

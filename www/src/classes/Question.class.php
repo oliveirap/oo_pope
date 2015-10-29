@@ -17,6 +17,7 @@
 class Question
 {
 	protected $tags;
+	protected $difficulty;
 	protected $body;
 	protected $answers;
 	protected $correctAnswer;
@@ -27,9 +28,9 @@ class Question
 	 * and $value the text, $correctAnswer the correct option
 	 * @return array() 'can' => bool(true)/bool(false), 'msg' => $msg for trySetQuestion() interpret.
 	 */
-	private function canSetQuestion($tags = null, $body = null, $answers = null, $correctAnswer = null)
+	private function canSetQuestion($tags = null, $difficulty = null, $body = null, $answers = null, $correctAnswer = null)
 	{
-		if(empty($tags) || empty($body) || empty($answers) || empty($correctAnswer))
+		if(empty($tags) || empty($difficulty) || empty($body) || empty($answers) || empty($correctAnswer))
 		{	
 			return array(
 					'can' => false,
@@ -58,6 +59,7 @@ class Question
 				$config              = HTMLPurifier_Config::createDefault();
 				$purifier            = new HTMLPurifier($config);
 				$this->tags          = escape($purifier->purify($tags));
+				$this->difficulty	 = $difficulty;
 				$this->body          = escapeWithTags($purifier->purify($body));
 				$this->answers       = escapeWithTags($this->formatAnswers($answers));
 				$this->correctAnswer = $correctAnswer;
@@ -83,9 +85,9 @@ class Question
 	 * and $value the text, $correctAnswer the correct option
 	 * @return return the array of the error if it exists, else invokes $this->register();
 	 */
-	public function trySetQuestion($tags = null, $body = null, $answers = null, $correctAnswer = null)
+	public function trySetQuestion($tags = null, $difficulty = null, $body = null, $answers = null, $correctAnswer = null)
 	{
-		$canSet = $this->canSetQuestion($tags, $body, $answers, $correctAnswer);
+		$canSet = $this->canSetQuestion($tags, $difficulty, $body, $answers, $correctAnswer);
 		if($canSet['can'])
 		{
 			return $this->register();
@@ -110,8 +112,10 @@ class Question
 			$data = array(
 					"tag"            => $this->tags,
 					"body"           => $this->body,
+					"difficulty"	 => $this->difficulty,
 					"answers"        => $this->answers,
-					"correct_answer" => $this->correctAnswer
+					"correct_answer" => $this->correctAnswer,
+					"questionkey"    => generateKey();
 				);
 			$id = $db->insert(DB_PREFIX . 'questions', $data);
 			if(!!$id)

@@ -1,7 +1,7 @@
 <?php 
 /**
  * POPE Look Class
- *
+ * This class is used for check disponibility. Functions will always return true or false.
  * @category  Pesquisa em DB
  * @package   POPE - Plataform For Online Problems and Exercises
  * @author    Pedro Oliveira <pedroliveira007@hotmail.com>
@@ -21,7 +21,6 @@ class Look
 	public function userExists($user)
 	{
 		$db = Conectar();
-		$db->set_table_prefix(DB_PREFIX);
 		$db->select()->from("users")->where("username", $user)->execute();
 		$affected = $db->affected_rows;
 		if($affected > 0)
@@ -43,7 +42,6 @@ class Look
 	public function emailExists($email)
 	{
 		$db = Conectar();
-		$db->set_table_prefix(DB_PREFIX);
 		$db->select()->from("users")->where("email", $email)->execute();
 		$affected = $db->affected_rows;
 		if($affected > 0)

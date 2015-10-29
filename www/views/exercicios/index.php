@@ -11,6 +11,21 @@ $watcher->watchLogout();
 	<title>Lista X</title>
 </head>
 <body>
-	Responder Lista.
+	<?php 
+		require_once(DIR_PARTIALS . "nav.php");
+		if(empty($_GET['tid']))
+		{
+			echo "Por favor, selecione uma lista.";
+		}
+		else if(empty($_GET['qid']))
+		{
+			$watcher->redirect("?tid=" . $_GET['tid'] . "&qid=1");
+		}
+		else
+		{
+			echo "Vai imprimir questão " . $_GET['qid'] .  " da lista " .  $_GET['tid'];
+		}
+
+	?>
 </body>
 </html>

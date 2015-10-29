@@ -13,7 +13,8 @@ define("URL_VIEWS", URL_BASE . "views/");
 define("URL_REGISTRO", URL_VIEWS . "registro/");
 define("URL_PAINEL", URL_VIEWS . "painel/");
 define("URL_NEW_QUESTION", URL_VIEWS . "exercicios/cadastrar.php");
-define("URL_ANSWER_TEST", URL_VIEWS . "exercicios/")/
+define("URL_ANSWER_TEST", URL_VIEWS . "exercicios/");
+define("URL_NEW_TEST", URL_VIEWS . "exercicios/novalista.php");
 //DIRS
 define("DIR_BASE", $_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/");
 define("DIR_SRC", DIR_BASE . "src/");

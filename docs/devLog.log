@@ -42,4 +42,7 @@
 {
 	* Question insert finished. A new function was added to helpers.php, checking if 
 	* the post attemp is the first of it's kind.
+	* Retriever class development started.
+	* TODO: Improve the pp_list fields max size. Shall be discussed.
+	* TODO: Add registred(DATE), modified(DATA) field on pp_lists, pp_questions.
 }
