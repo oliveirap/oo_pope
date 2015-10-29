@@ -1,7 +1,7 @@
 <?php
 /**
  * POPE Watchers Class
- *
+ * This class is responsible for checking post attemps (such as login, inserting a new question) and invoking the respective functions to do so.
  * @category  Watcher
  * @package   POPE - Plataform For Online Problems and Exercises
  * @author    Pedro Oliveira <pedroliveira007@hotmail.com>
@@ -118,7 +118,27 @@ class Watchers
 			}
 		}
 	}
-	
+
+	/**
+	 * Watch for question registration post attempt
+	 * @uses Question::
+	 */
+	public function watchNewQuestion()
+	{
+		if(!!getPost('submitNewQuestion'))
+		{
+			if(!empty($_POST['answer-text']) && array_filter($_POST['answer-text']))
+			{
+				$question = new Question();
+				$tags = isset($_POST['question-tags']) ? $_POST['question-tags'] : null;
+				$body = isset($_POST['question-body']) ? $_POST['question-body'] : null;
+				$theAnswer = isset($_POST['question-answer']) ? $_POST['question-answer'] : null;
+				$answers = isset($_POST['answer-text']) ? $question->encodeAnswer($_POST['answer-text']) : null;
+				$wasSet = $question->trySetQuestion($tags, $body, $answers, $theAnswer);
+				return $wasSet;
+			}
+		}
+	}
 
 	/**
 	 * Logout the user.

@@ -37,3 +37,9 @@
 	* Will use WYSIHTML (v0.5.0 - beta14) for the question text input doc on http://wysihtml.com/;
 	* Will use HTML Purifier 4.7 for the input sanitizing. This was recommended by WYSIHTML page itself.
 }
+
+@28-10-2015
+{
+	* Question insert finished. A new function was added to helpers.php, checking if 
+	* the post attemp is the first of it's kind.
+}

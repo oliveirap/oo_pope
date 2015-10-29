@@ -7,7 +7,7 @@ define("DB_PASS", "");
 define("DB_PREFIX", "pp_");
 define("DB_CHARSET", "utf8");
 //URLS
-define("URL_BASE", "http://pope.dev:8080/oo_pope/www/");
+define("URL_BASE", "http://pope.dev/oo_pope/www/");
 //views
 define("URL_VIEWS", URL_BASE . "views/");
 define("URL_REGISTRO", URL_VIEWS . "registro/");
@@ -28,5 +28,6 @@ define("DIR_WYSIHTML", DIR_BASE  . "assets/lib/wysihtml/");
 define("FILE_AUTOLOADER", DIR_SRC . "autoloader.php");
 define("FILE_HEADER", DIR_PARTIALS . "header.php");
 define("FILE_FOOTER", DIR_PARTIALS . "footer.php");
+define("FILE_PURIFIER_AUTOLOADER", DIR_LIB . "htmlpurifier/library/HTMLPurifier.auto.php")
 //$_SESSION
 ?>

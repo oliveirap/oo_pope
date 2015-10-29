@@ -147,7 +147,7 @@ class User
 	}
 
 	/**
-	* Returns user info
+	* Returns user info. Not in use as of 10-27-2015
 	* @param $args[] fields to be returned, else returns all
 	* @return User info.
 	 */

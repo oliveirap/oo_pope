@@ -64,6 +64,24 @@
 		}
 	}
 
+	function escapeWithTags($args)
+	{
+		$conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME) or die(mysqli_connect_error());
+		mysqli_set_charset($conn, DB_CHARSET) or die(mysqli_error($conn));
+		if(!is_array($args))
+		{
+			return mysqli_real_escape_string($conn, $args);
+		}
+		else
+		{
+			foreach ($args as $key => $value) {
+				$newValue = mysqli_real_escape_string($conn, $value);
+				$data[$key] = $newValue;
+			}
+			return $data;
+		}
+	}
+
 	/**
 	* Generates a userkey.
 	 */
@@ -100,6 +118,26 @@
 		if(isset($_SESSION['userInfo'][$field]) && !empty($_SESSION['userInfo'][$field]))
 		{
 			return $_SESSION['userInfo'][$field];
+		}
+	}
+	
+	/**
+	 * Checks if the same form is been sent again.
+	 */
+	function isNewPost()
+	{
+		if($_SERVER['REQUEST_METHOD'] == 'POST')
+		{
+			$request = md5(json_encode($_POST));
+			if(isset($_SESSION['last_request']) && $_SESSION['last_request'] == $request)
+			{
+				return false;
+			}
+			else
+			{
+				$_SESSION['last_request'] = $request;
+				return true;
+			}
 		}
 	}
 	

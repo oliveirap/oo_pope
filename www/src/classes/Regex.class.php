@@ -10,6 +10,10 @@
  * @version   1.0.0
  **/
 class Regex{
+
+	/**
+	 * User Register validations
+	 **/
 	public function validateUser($usuario){
 		$regex = "/^[a-zA-Z0-9_@%#$&!\\\.-\\\']{3,16}$/";
 		return preg_match($regex, $usuario);
@@ -34,6 +38,21 @@ class Regex{
 	public function validateEmail($email){
 		$regex = "/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/";
 		return preg_match($regex, $email);
+	}
+
+	/**
+	 * Question Register validations
+	 **/
+	public function validateQuestionTags($tags)
+	{
+		$regex = "/^[\w\d\s]+$/";
+		return preg_match($regex, $tags);
+	}
+	public function validateQuestionBody($body)
+	{
+		$body = strip_tags($body);
+		$body = str_replace(" ", "", $body);
+		$len = strlen($body);
 	}
 }
 ?>
