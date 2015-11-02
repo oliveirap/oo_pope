@@ -12,7 +12,22 @@
 		else
 			return (isset($_POST[$key])) ? escape($_POST[$key]) : false;
 	}
-	
+	function thePost($key = null)
+	{
+		if($key === null)
+		{
+			return $_POST;
+		}
+		else if(isset($_POST[$key]))
+		{
+			return $_POST[$key];
+		}
+		else
+		{
+			return null;
+		}
+	}
+
 	// Sets
 
 	/**

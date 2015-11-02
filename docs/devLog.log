@@ -46,3 +46,8 @@
 	* TODO: Improve the pp_list fields max size. Shall be discussed.
 	* TODO: Add registred(DATE), modified(DATA) field on pp_lists, pp_questions.
 }
+
+@02-11-2015
+{
+	* Some list functions are done. Pagination on development. 
+}

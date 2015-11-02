@@ -12,6 +12,8 @@
 
 class Watchers
 {
+
+	/** RESTRICTIONS **/ 
 	/**
 	 * Redirects to a certain page and kills the system.
 	 * @param $location URL to me redirected.
@@ -91,6 +93,26 @@ class Watchers
 	}
 
 	/**
+	 * Checks if the user can be logged
+	 * @uses Look:: to check the status of the user
+	 * @return bool(false) if the user can't be logged, bool(true) if it can
+	 */	private function canBeLogged()
+	{
+		$look = new Look();
+		$userkey = $_SESSION['userInfo']['userkey'];
+		if($look->getStatus($userkey))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/** WATCH USER ACTIONS **/
+
+	/**
 	 * Watch for logout URL
 	 * @uses $this->logout();
 	 */
@@ -120,28 +142,6 @@ class Watchers
 	}
 
 	/**
-	 * Watch for question registration post attempt
-	 * @uses Question::
-	 */
-	public function watchNewQuestion()
-	{
-		if(!!getPost('submitNewQuestion'))
-		{
-			if(!empty($_POST['answer-text']) && array_filter($_POST['answer-text']))
-			{
-				$question = new Question();
-				$tags = isset($_POST['question-tags']) ? $_POST['question-tags'] : null;
-				$body = isset($_POST['question-body']) ? $_POST['question-body'] : null;
-				$difficulty = isset($_POST['question-difficulty']) ? $_POST['question-difficulty'] : null;
-				$theAnswer = isset($_POST['question-answer']) ? $_POST['question-answer'] : null;
-				$answers = isset($_POST['answer-text']) ? $question->encodeAnswer($_POST['answer-text']) : null;
-				$wasSet = $question->trySetQuestion($tags, $difficulty, $body, $answers, $theAnswer);
-				return $wasSet;
-			}
-		}
-	}
-
-	/**
 	 * Logout the user.
 	 */
 	public function logout()
@@ -151,22 +151,44 @@ class Watchers
 	}
 
 	/**
-	 * Checks if the user can be logged
-	 * @uses Look:: to check the status of the user
-	 * @return bool(false) if the user can't be logged, bool(true) if it can
+	 * Watch for question registration post attempt
+	 * @uses Question::
+	 * @return $wasSet the array containing info 'can' => bool and 'msg' => Any message.
 	 */
-	private function canBeLogged()
+	public function watchNewQuestion()
 	{
-		$look = new Look();
-		$userkey = $_SESSION['userInfo']['userkey'];
-		if($look->getStatus($userkey))
+		if(!!getPost('submitNewQuestion'))
 		{
-			return true;
-		}
-		else
-		{
-			return false;
+			$question   = new Question();
+			$tags       = thePost('question-tags');
+			$body       = thePost('question-body');
+			$difficulty = thePost('question-difficulty');
+			$theAnswer  = thePost('question-answer');
+			$answers    = $question->encodeAnswer(thePost('answer-text'));
+			$wasSet     = $question->trySetQuestion($tags, $difficulty, $body, $answers, $theAnswer);
+			return $wasSet;
+			
 		}
 	}
+
+	/**
+	 * Watch for tests registration post attempt
+	 * @uses Test::
+	 */
+	public function watchNewTest()
+	{
+		if(!!getPost('submitNewTest'))
+		{
+			$test        = new Test();
+			$name        = thePost('testName');
+			$tags        = thePost('testTags');
+			$difficulty  = thePost('testDifficulty');
+			$questions   = thePost('testQuestions');
+			$description = thePost('testDescription');
+			$wasSet      = $test->trySetTest($name, $tags, $difficulty, $questions, $description);
+			return $wasSet;
+		}
+	}
+
 }
 ?>

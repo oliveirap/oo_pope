@@ -16,6 +16,7 @@ $watcher->watchLogout();
 		if(empty($_GET['tid']))
 		{
 			echo "Por favor, selecione uma lista.";
+
 		}
 		else if(empty($_GET['qid']))
 		{
@@ -25,7 +26,7 @@ $watcher->watchLogout();
 		{
 			echo "Vai imprimir questão " . $_GET['qid'] .  " da lista " .  $_GET['tid'];
 		}
-
 	?>
+
 </body>
 </html>

@@ -3,41 +3,100 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
 $watcher = new Watchers();
 $watcher->userOnly();
 $watcher->watchLogout();
+$wasSet = $watcher->watchNewTest();
+$retriever = new Retriever();
+$tags = array("robotica", "aceleracao");
+$diff = array(1, 3);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Nova Lista</title>
+<style>
+table, tr, td
+{
+	border: 1px solid black;
+	border-collapse: collapse;
+
+}
+td{
+	padding: 5px;
+}	
+</style>
 </head>
 <body>
 	<?php 
 		require_once(DIR_PARTIALS . "nav.php");
 	?>
-
-	<form action="?">
-		<label>Nome da Lista<br><input type="text" name="test-name"></label>
+	
+	<form action="?" method="POST">
+		<label>Nome da Lista<br><input type="text" name="testName"></label>
 		<br>
 		<br>
-		<label>tags<br><input type="text" name="test-tags"></label>
+		<label>tags<br><input type="text" name="testTags"></label>
 		<br>
 		<br>
 		<label>Descrição
 		<br>
-		<textarea name="test-description" cols="30" rows="10"></textarea></label>
+		<textarea name="testDescription" cols="30" rows="10"></textarea></label>
 		<br>
 		<br>
 		<label>Dificuldade</label>
 		<br>
-		<label><input type="radio" value="1" name="test-difficulty"> Fácil </label>
+		<label><input type="radio" value="1" name="testDifficulty"> Fácil </label>
 		<br>
-		<label><input type="radio" value="2" name="test-difficulty"> Médio </label>
+		<label><input type="radio" value="2" name="testDifficulty"> Médio </label>
 		<br>
-		<label><input type="radio" value="3" name="test-difficulty"> Dificil </label>
+		<label><input type="radio" value="3" name="testDifficulty"> Dificil </label>
+		<br>
+		<label>Tags</label>
+		<label><input type="checkbox" class="tagCheck" name="tags[]" value="mecanica">Mecanica</label>
+		<label><input type="checkbox" class="tagCheck" name="tags[]" value="cinematica">Cinematica</label>
+		<br>
+		<label>Dificuldade</label>
+		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="1">Fácil</label>
+		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="2">Média</label>
+		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="3">Dificl</label>
+		<a href="#" data-role='button' id="buscar">Buscar</a>
 		<br>
 		<br>
-		<input type="submit" name="submitNewList" value="Cadastrar">
+		<div id="qholder">
+			<table>
+				<tr>
+					<td>Usar</td>
+					<td>Enunciado</td>
+					<td>Alternativas</td>
+					<td>Correta</td>			
+				</tr>				
+			</table>
+		</div>
+<!-- 		<?php
+			$data = $retriever->retrieveQuestion();
+		?>
+		<table border=1 style="max-width: 2000px">
+			<tr>
+				<td>Usar</td>
+				<td>Enunciado</td>
+				<td>Alternativas</td>
+				<td>Correta</td>			
+			</tr>
+			<?php foreach ($data as $question): ?>
+				<tr>
+					<td><input type='checkbox' name="testQuestions[]" value="<?php echo $question['id'] ?>"></td>
+					<td><?php echo $question['body'] ?></td>
+					<td><?php echo $question['answers'] ?></td>
+					<td><?php echo $question['correct_answer'] ?></td>
+				</tr>
+			<?php endforeach ?>
+			</table> -->
+		<input type="submit" name="submitNewTest" value="Cadastrar">
 	</form>
-
+	<?php if (isset($wasSet)) {
+		echo($wasSet['msg']);
+	} ?>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="../../assets/js/custom.js"></script>
+	<script src="../../assets/lib/paginator.js"></script>
 </body>
 </html>

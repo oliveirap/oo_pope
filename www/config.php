@@ -15,6 +15,7 @@ define("URL_PAINEL", URL_VIEWS . "painel/");
 define("URL_NEW_QUESTION", URL_VIEWS . "exercicios/cadastrar.php");
 define("URL_ANSWER_TEST", URL_VIEWS . "exercicios/");
 define("URL_NEW_TEST", URL_VIEWS . "exercicios/novalista.php");
+define("URL_SEARCH", URL_BASE . "assets/partials/search.php");
 //DIRS
 define("DIR_BASE", $_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/");
 define("DIR_SRC", DIR_BASE . "src/");
