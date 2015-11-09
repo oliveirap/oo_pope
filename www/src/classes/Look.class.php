@@ -1,8 +1,7 @@
 <?php 
 /**
  * POPE Look Class
- * This class is used for check disponibility. Functions will always return true or false.
- * @category  Pesquisa em DB
+ * This class is used for check disponibility, check if parameters match. Functions will always return true or false.
  * @package   POPE - Plataform For Online Problems and Exercises
  * @author    Pedro Oliveira <pedroliveira007@hotmail.com>
  * @copyright Copyright (c) 2015
@@ -105,6 +104,25 @@ class Look
 			return false;
 		}
 
+	}
+
+	/**
+	 * Checks if is the correct answer
+	 * @param $correct The Correct answer
+	 * @param $marked The marked answer
+	 * @return bool(true) if correct, bool(false) elsewise
+	 */
+	
+	public function isCorrectAnswer($correct, $marked)
+	{
+		if($correct == $marked)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 	
 

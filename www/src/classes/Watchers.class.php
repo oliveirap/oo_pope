@@ -183,10 +183,69 @@ class Watchers
 			$name        = thePost('testName');
 			$tags        = thePost('testTags');
 			$difficulty  = thePost('testDifficulty');
-			$questions   = thePost('testQuestions');
+			$questions   = thePost('theQuestions');
 			$description = thePost('testDescription');
 			$wasSet      = $test->trySetTest($name, $tags, $difficulty, $questions, $description);
 			return $wasSet;
+		}
+	}
+
+
+	/**
+	 * Watch for a test making. All logic will be here, i think...
+	 * @uses Retriever::
+	 */
+	public function watchTestAnswering()
+	{
+		if(empty($_GET['tid']))
+		{
+			/** Deve mostrar o buscador de listas **/
+			echo "Por favor, selecione uma lista.";
+		}
+		else if(empty($_GET['qid']))
+		{
+			/** Redireciona para a primeira questão da lista **/
+			$this->redirect("?tid=" . $_GET['tid'] . "&qid=1");
+		}
+		else
+		{
+			/** Imprimir questões aqui, lógica dos logs **/
+			$tid       = $_GET['tid'];
+			$qid       = (int)$_GET['qid'];
+			$retriever = new Retriever();
+			$test      = $retriever->retrieveTest(null, null, $tid);
+			echo "<pre>";
+			print_r($test);
+			if(array_filter($test))
+			{
+				$test      = $test[0];
+				$questions = explode(",",$test['questions']);
+				print_r($questions);
+				if($qid > sizeof($questions))
+				{
+					$this->redirect("?tid=" . $tid);
+				}
+				else
+				{
+					$qid             = ($qid - 1);
+					$qid             = $questions[$qid];
+					$currentQuestion = $retriever->retrieveQuestion(null, null, $qid);	
+					if(array_filter($currentQuestion))
+					{
+						$currentQuestion = $currentQuestion[0];
+						print_r($currentQuestion);
+					}
+					else
+					{
+						$this->redirect("?tid=" . $tid . "&qid=" . ($qid+2));
+					}
+				}
+			}
+			else
+			{
+				$this->redirect("?");
+			}
+			echo "</pre>";
 		}
 	}
 

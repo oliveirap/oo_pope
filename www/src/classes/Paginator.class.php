@@ -64,7 +64,7 @@ class Paginator
 	 */
 	public function plotResults($page = 0)
 	{
-		if(is_int($page) && $page > 0 && $page <= $maxPages)
+		if(is_int($page) && $page > 0 && $page <= $this->maxPages)
 		{
 			if($this->perPage > 0 )
 			{
@@ -72,23 +72,23 @@ class Paginator
 				$index             = ($page * $this->perPage) - ($this->perPage);
 				$plot              = array();
 				$k                 = 0;
-				for ($i = $index ; $i < ($index + $this->perPage) ; $i++)
+				for ($i = $index ; $i < ($index + $this->perPage) && array_key_exists($i, $this->results) ; $i++)
 				{ 
-					$plot['questions'][$k] = $results[$i];
+					$plot['questions'][$k] = $this->results[$i];
 					$k++;
 				}
 				$plot['links'] = $this->plotLinks();
 				return $plot;
 			}
 		}
-		else if(is_int($page) && $page > $maxPages)
+		else if(is_int($page) && $page > $this->maxPages)
 		{
-			$this->currentPage = $maxPages;
+			$this->currentPage = $this->maxPages;
 			$plot['links']     = $this->plotLinks();
-			$index             = ($maxPages * $this->perPage) - ($this->perPage);
+			$index             = ($this->maxPages * $this->perPage) - ($this->perPage);
 			$plot              = array();
 			$k                 = 0;
-			for ($i = $index; $i < $numberOfResults; $i++)
+			for ($i = $index; $i < $this->numberOfResults; $i++)
 			{ 
 				$plot[$k] = $results[$i];
 				$k++;
@@ -105,15 +105,48 @@ class Paginator
 	{
 		$aside   = floor($this->pageRange - 1);
 		$link    = "<ul class='paginate list'>";
-		$current = $this->currentPage
+		$current = $this->currentPage;
 		if($current == 1)
 		{
 			$link .= "<li><a class='paginate link current' href='#'>1</a></li>";
-			for ($i = 1; $i <= $aside; $i++)
+			for ($i = 1; $i <= $aside && $i < $this->maxPages; $i++)
 			{ 
-				$link .= "<li><a class='paginate link' href='?page=" . ($current+$i)	
+				$link .= "<li><a class='paginate link' href='?page=" . ($current+$i) . "'>" . ($current+$i) . "</a></li>";	
 			}
 		}
+		else if($current == $this->maxPages)
+		{
+			if($this->maxPages - $aside > 0)
+			{
+				for ($i = 1; $i <= $aside; $i++)
+				{
+					$link .= "<li><a class='paginate link' href='?page=" . ($this->maxPages - $aside + $i) . "'>" . ($this->maxPages - $aside + $i) . "</a></li>";
+				}
+			}
+			else
+			{
+				for ($i = ($this->maxPages - 1); $i > 0; $i--)
+				{
+					$link .= "<li><a class='paginate link' href='?page=" . ($this->maxPages - $i) . "'>" . ($this->maxPages - $i) . "</a></li>"; 
+				}
+			}
+			$link .= "<li><a class='paginate link current' href='?page=" . $this->maxPages . "'>" . $this->maxPages . "</a></li>"; 
+		}
+		else
+		{
+			$link .= "<li><a class='paginate link' href='?page=" . $this->previousPage() . "'>" . $this->previousPage() . "</a></li>";
+			$link .= "<li><a class='paginate link current' href='?page=" . $current . "'>" . $current . "</a></li>";
+			for ($i=1; $i < $aside - 2; $i++)
+			{ 
+				if($current + $i > $this->maxPages)
+				{
+					break;
+				}
+				$link .= "<li><a class='paginate link' href='?page=" . ($current + $i) . "'>" . ($current + $i) . "</a></li>";
+			}
+		}
+		$link .= "</ul>";
+		return $link;
 	}
 
 	/**
@@ -123,7 +156,7 @@ class Paginator
 	{
 		if($this->currentPage < $this->maxPages)
 		{
-			return ($this->currentPage + 1)
+			return ($this->currentPage + 1);
 		}
 	}
 
@@ -134,7 +167,7 @@ class Paginator
 	{
 		if($this->currentPage > 1)
 		{
-			return ($this->currentPage - 1);
+			return ($this->currentPage - 1);	
 		}
 	}
 

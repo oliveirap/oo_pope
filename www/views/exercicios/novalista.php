@@ -1,12 +1,9 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
 $watcher = new Watchers();
-$watcher->userOnly();
+$watcher->adminOnly();
 $watcher->watchLogout();
 $wasSet = $watcher->watchNewTest();
-$retriever = new Retriever();
-$tags = array("robotica", "aceleracao");
-$diff = array(1, 3);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,8 +26,7 @@ td{
 	<?php 
 		require_once(DIR_PARTIALS . "nav.php");
 	?>
-	
-	<form action="?" method="POST">
+	<form action="?" id="newTest" method="POST">
 		<label>Nome da Lista<br><input type="text" name="testName"></label>
 		<br>
 		<br>
@@ -57,7 +53,7 @@ td{
 		<label>Dificuldade</label>
 		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="1">Fácil</label>
 		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="2">Média</label>
-		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="3">Dificl</label>
+		<label><input type="checkbox" class="difCheck" name="dificuldade[]" value="3">Dificil</label>
 		<a href="#" data-role='button' id="buscar">Buscar</a>
 		<br>
 		<br>
@@ -71,31 +67,14 @@ td{
 				</tr>				
 			</table>
 		</div>
-<!-- 		<?php
-			$data = $retriever->retrieveQuestion();
-		?>
-		<table border=1 style="max-width: 2000px">
-			<tr>
-				<td>Usar</td>
-				<td>Enunciado</td>
-				<td>Alternativas</td>
-				<td>Correta</td>			
-			</tr>
-			<?php foreach ($data as $question): ?>
-				<tr>
-					<td><input type='checkbox' name="testQuestions[]" value="<?php echo $question['id'] ?>"></td>
-					<td><?php echo $question['body'] ?></td>
-					<td><?php echo $question['answers'] ?></td>
-					<td><?php echo $question['correct_answer'] ?></td>
-				</tr>
-			<?php endforeach ?>
-			</table> -->
 		<input type="submit" name="submitNewTest" value="Cadastrar">
 	</form>
+	<div id="linkholder"></div>
 	<?php if (isset($wasSet)) {
 		echo($wasSet['msg']);
 	} ?>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+	<script src="../../assets/js/jquery.js"></script>
 	<script src="../../assets/js/custom.js"></script>
 	<script src="../../assets/lib/paginator.js"></script>
 </body>

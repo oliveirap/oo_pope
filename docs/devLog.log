@@ -51,3 +51,14 @@
 {
 	* Some list functions are done. Pagination on development. 
 }
+
+@09-11-2015
+{
+	* Things were done all between 02-11 ~ 09-11, although i was lazy and didn't log it.
+	* For the important part
+	* Pagination is done since some time.
+	* Retriever::retrieveQuestion() and Retriever::retrieveTest() now have a $id parameter
+	* id parameter will return a specific test/question rather than searching for one.s
+	* THE LENDARY DOER CLASS WAS TODAY WRITTEN ON THE LEGENDARY CLASSES BOOK
+	* GO AND CHECK IT OUT
+}
