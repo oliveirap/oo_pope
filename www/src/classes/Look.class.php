@@ -22,6 +22,31 @@ class Look
 		$db = Conectar();
 		$db->select()->from("users")->where("username", $user)->execute();
 		$affected = $db->affected_rows;
+		unset($db);
+		if($affected > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Checks if userkey is valid
+	 * @uses Database::
+	 * @param $userkey
+	 * @return return bool
+	 */
+	public function userkeyExists($userkey)
+	{
+		$userkey = escape($userkey);
+		$db = Conectar();
+		$where = array("userkey" => $userkey, "status" => 1);
+		$db->select()->from("users")->where($where)->execute();
+		$affected = $db->affected_rows;
+		unset($db);
 		if($affected > 0)
 		{
 			return true;
@@ -43,6 +68,7 @@ class Look
 		$db = Conectar();
 		$db->select()->from("users")->where("email", $email)->execute();
 		$affected = $db->affected_rows;
+		unset($db);
 		if($affected > 0)
 		{
 			return true;
@@ -68,6 +94,7 @@ class Look
 			$data = $db->query($sql)->fetch();
 			$lim = $data[0]['lim'];
 			$reg = $data[0]['reg'];
+			unset($db);
 			if($reg < $lim)
 			{
 				return true;
@@ -95,6 +122,7 @@ class Look
 		$userkey  = escape($userkey);
 		$db       = Conectar();
 		$data     = $db->select('status')->from("users")->where("userkey", $userkey)->fetch();
+		unset($db);
 		if(!empty($data) && isset($data[0]["status"]) && $data[0]["status"] == 1)
 		{
 			return true;
@@ -108,14 +136,19 @@ class Look
 
 	/**
 	 * Checks if is the correct answer
-	 * @param $correct The Correct answer
+	 * @param $qid the question id
 	 * @param $marked The marked answer
 	 * @return bool(true) if correct, bool(false) elsewise
 	 */
-	
-	public function isCorrectAnswer($correct, $marked)
+	public function isCorrectAnswer($qid, $marked)
 	{
-		if($correct == $marked)
+		$qid      = escape($qid);
+		$db       = Conectar();
+		$where    = array("id" => $qid, "correct_answer" => "$marked");
+		$db->select()->from("questions")->where($where)->fetch();
+		$affected = $db->affected_rows;
+		unset($db);
+		if($affected > 0)
 		{
 			return true;
 		}
@@ -124,7 +157,5 @@ class Look
 			return false;
 		}
 	}
-	
-
 }
 ?>

@@ -58,7 +58,12 @@
 	* For the important part
 	* Pagination is done since some time.
 	* Retriever::retrieveQuestion() and Retriever::retrieveTest() now have a $id parameter
-	* id parameter will return a specific test/question rather than searching for one.s
+	* id parameter will return a specific test/question rather than searching for one.
 	* THE LENDARY DOER CLASS WAS TODAY WRITTEN ON THE LEGENDARY CLASSES BOOK
 	* GO AND CHECK IT OUT
+}
+
+@10-11-2015
+{
+	* TODO: Doer::doTest log time of the question..
 }

@@ -23,7 +23,10 @@ td{
 </style>
 </head>
 <body>
-	<?php 
+
+	<?php
+		$doer = (!empty($_SESSION['theDoer'])) ? json_decode($_SESSION['theDoer']) : null;
+		print_r($doer); 
 		require_once(DIR_PARTIALS . "nav.php");
 	?>
 	<form action="?" id="newTest" method="POST">

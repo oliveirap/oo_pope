@@ -105,6 +105,7 @@ class Retriever
 			$sql  = "SELECT * FROM $tb WHERE id = '$id' LIMIT 1";
 			$data = $db->query($sql)->fetch();
 		}
+		unset($db);
 		return $data;
 	}
 	
@@ -192,6 +193,8 @@ class Retriever
 			$tb   = DB_PREFIX . "tests";
 			$sql  = "SELECT * FROM $tb $where";
 			$data = $db->query($sql)->fetch();
+			unset($db);
+			return $data;
 		}
 		else
 		{
@@ -199,8 +202,9 @@ class Retriever
 			$tb      = DB_PREFIX . "tests";
 			$sql     = "SELECT * FROM $tb WHERE listkey = '$listkey' LIMIT 1";
 			$data    = $db->query($sql)->fetch();
+			unset($db);
+			return $data;
 		}
-		return $data;
 	}
 
 	/**
@@ -216,6 +220,7 @@ class Retriever
 			echo "null";
 			$db   = Conectar();
 			$data = $db->select()->from('tags')->fetch();
+			unset($db);
 			return $data;
 		}
 		else if(!is_array($tags))
@@ -224,6 +229,7 @@ class Retriever
 			$tags  = escape($tags);
 			$where = array("code" => $tags);
 			$data  = $db->select()->from('tags')->where($where)->fetch();
+			unset($db);
 			return $data;
 		}
 		else
@@ -256,6 +262,7 @@ class Retriever
 			$tb   = DB_PREFIX . "tags";
 			$data = $db->query("SELECT * FROM $tb $where")->fetch();
 			$data = array_filter($data);
+			unset($db);
 			return $data;
 		}
 	}
