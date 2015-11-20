@@ -65,5 +65,10 @@
 
 @10-11-2015
 {
-	* TODO: Doer::doTest log time of the question..
+	* TODO: Doer::doTest log time of the question.. DONE @16-11-2015
+}
+
+@16-11-2015
+{
+    * Log question time done
 }

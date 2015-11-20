@@ -12,7 +12,6 @@
 
 class Watchers
 {
-
 	/** RESTRICTIONS **/ 
 	/**
 	 * Redirects to a certain page and kills the system.
@@ -153,7 +152,7 @@ class Watchers
 	/**
 	 * Watch for question registration post attempt
 	 * @uses Question::
-	 * @return $wasSet the array containing info 'can' => bool and 'msg' => Any message.
+	 * @return array $wasSet containing info 'can' => bool and 'msg' => Any message.
 	 */
 	public function watchNewQuestion()
 	{
@@ -197,55 +196,52 @@ class Watchers
 	 */
 	public function watchTestAnswering()
 	{
-		if(empty($_GET['tid']))
+		if(!empty($_SESSION['theDoer']))
 		{
-			/** Deve mostrar o buscador de listas **/
-			echo "Por favor, selecione uma lista.";
-		}
-		else if(empty($_GET['qid']))
-		{
-			/** Redireciona para a primeira questão da lista **/
-			$this->redirect("?tid=" . $_GET['tid'] . "&qid=1");
-		}
-		else
-		{
-			/** Imprimir questões aqui, lógica dos logs **/
-			$tid       = $_GET['tid'];
-			$qid       = (int)$_GET['qid'];
-			$retriever = new Retriever();
-			$test      = $retriever->retrieveTest(null, null, $tid);
-			echo "<pre>";
-			print_r($test);
-			if(array_filter($test))
+			$doer = new Doer();
+			$doer->fromJson($_SESSION['theDoer']);
+			if(!empty($_GET['aid']))
 			{
-				$test      = $test[0];
-				$questions = explode(",",$test['questions']);
-				print_r($questions);
-				if($qid > sizeof($questions))
-				{
-					$this->redirect("?tid=" . $tid);
-				}
-				else
-				{
-					$qid             = ($qid - 1);
-					$qid             = $questions[$qid];
-					$currentQuestion = $retriever->retrieveQuestion(null, null, $qid);	
-					if(array_filter($currentQuestion))
-					{
-						$currentQuestion = $currentQuestion[0];
-						print_r($currentQuestion);
-					}
-					else
-					{
-						$this->redirect("?tid=" . $tid . "&qid=" . ($qid+2));
-					}
-				}
+				$aid = $_GET['aid'];
+				return($doer->doTest($doer->currentQuestion, $aid));
+			}
+		}
+	}
+
+	/**
+	 * Init test answer
+	 */
+	public function initTest()
+	{
+		if(empty($_SESSION['theDoer']))
+		{
+			if(empty($_GET['tid']))
+			{
+				/** Deve mostrar o buscador de listas **/
+				echo "Por favor, selecione uma lista.";
+			}
+			else if(empty($_GET['qid']))
+			{
+				/** Redireciona para a primeira questão da lista **/
+				$this->redirect("?tid=" . $_GET['tid'] . "&qid=1");
 			}
 			else
 			{
-				$this->redirect("?");
+				$tid  = $_GET['tid'];
+				$qid  = $_GET['qid'];
+				$userkey = $_SESSION['userInfo']['userkey'];
+				$doer = new Doer();
+				$can  = $doer->trySet($userkey, $tid, $qid);
+				if($can['can'])
+				{
+					return $can;
+				}
+				else
+				{
+					unset($doer);
+					return $can;
+				}
 			}
-			echo "</pre>";
 		}
 	}
 

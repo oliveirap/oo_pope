@@ -196,7 +196,7 @@ class User
 		if(!$can["can"])
 		{
 			return array(
-					"registred" => false,
+					"registered" => false,
 					"msg" => $can['msg']
 				);
 		}
@@ -210,13 +210,13 @@ class User
 				"username"  => $this->user,
 				"password"  => $this->pass,
 				"userkey"   => $this->userkey,
-				"registred" => date("Y-m-d H:i:s"),
+				"registered" => date("Y-m-d H:i:s"),
 				"type"      => $this->type,
 				"status"    => $this->status,
 				);
 			$id = $db->insert(DB_PREFIX . 'users', $data);	
 			return array(
-					"registred" => true,
+					"registered" => true,
 					"msg"       => "Registrado com sucesso."
 				);
 		}
