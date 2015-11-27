@@ -188,7 +188,7 @@ class User
 	/** 
 	* Register the user
 	* @uses ::canRegister to check if it is possible to register
-	* @return array(registred => true, msg => Registrado com sucesso) if sucess, array(registred => false, msg => Any erro msg) elsewise
+	* @return array(registered => true, msg => Registrado com sucesso) if success, array(registered => false, msg => Any error msg) elsewise
 	 */
 	public function register()
 	{
@@ -214,7 +214,7 @@ class User
 				"type"      => $this->type,
 				"status"    => $this->status,
 				);
-			$id = $db->insert(DB_PREFIX . 'users', $data);	
+			$db->insert(DB_PREFIX . 'users', $data);
 			return array(
 					"registered" => true,
 					"msg"       => "Registrado com sucesso."

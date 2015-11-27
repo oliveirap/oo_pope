@@ -206,6 +206,7 @@ class Watchers
 				return($doer->doTest($doer->currentQuestion, $aid));
 			}
 		}
+		return null;
 	}
 
 	/**
@@ -244,6 +245,4 @@ class Watchers
 			}
 		}
 	}
-
 }
-?>

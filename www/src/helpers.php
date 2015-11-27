@@ -4,6 +4,7 @@
 	/**
 	* Returns all post data or only the specified one, already escaped
 	* @param $key Value to be returned.
+	* @return array
 	 */
 	function getPost($key = null)
 	{
@@ -44,6 +45,7 @@
 	/**
 	* Encripts a given string with sha512 hash. Used for passwords
 	* @param $pass String to be encripted.
+	* @return string password
 	 */
 	function encriptPass($pass)
 	{
@@ -60,6 +62,7 @@
 	/**
 	* Escape a string or array. 
 	* @param $args string/array to be escaped.
+	 * @return array
 	 */
 	function escape($args)
 	{
@@ -99,6 +102,8 @@
 
 	/**
 	 * Encodes the $doer->completedObjectives array to a string
+	 * 40:alt-3,alt-2,alt-1(05:30)
+	 * @param the array the Objectives
 	 * @return string questionNumber:alt-3,alt-4,alt-5(05:30); [...]
 	 */
 	function encodeLog($arr)
@@ -111,7 +116,7 @@
 		{
 			foreach($arr as $key => $value)
 			{
-				if(!array_key_exists($value['sequence']) || !array_key_exists($value['time']) || empty($value['sequence']) || empty($value['time']))
+				if(!array_key_exists("sequence", $value) || !array_key_exists("time", $value) || empty($value['sequence']) || empty($value['time']))
 				{
 					return false;
 				}
@@ -119,7 +124,7 @@
 			$encoded = "";
 			foreach($arr as $key => $value)
 			{
-				$encoded .= $key . ":" . $value['sequene'] . "(" . $value['time'] . ");";
+				$encoded .= $key . ":" . $value['sequence'] . "(" . $value['time'] . ");";
 			}
 			return $encoded;
 		}
@@ -137,7 +142,7 @@
 	/**
 	 * TRIMS the name on the first space back
 	 * @param $name String
-	 * @return $name trimmed
+	 * @return string $name trimmed
 	 */
 	function firstName($name)
 	{
@@ -154,7 +159,7 @@
 
 	/**
 	 * Returns the user info stored on $_SESSION['userInfo']
-	 * @param $field The field to return the value
+	 * @param string $field field to return the value
 	 * @return $value the value on the field
 	 */
 	function getInfo($field)
@@ -184,7 +189,3 @@
 			}
 		}
 	}
-	
-	
-
-?>

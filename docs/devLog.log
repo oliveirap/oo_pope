@@ -59,7 +59,7 @@
 	* Pagination is done since some time.
 	* Retriever::retrieveQuestion() and Retriever::retrieveTest() now have a $id parameter
 	* id parameter will return a specific test/question rather than searching for one.
-	* THE LENDARY DOER CLASS WAS TODAY WRITTEN ON THE LEGENDARY CLASSES BOOK
+	* THE LEGENDARY DOER CLASS WAS TODAY WRITTEN ON THE LEGENDARY CLASSES BOOK
 	* GO AND CHECK IT OUT
 }
 
@@ -71,4 +71,18 @@
 @16-11-2015
 {
     * Log question time done
+}
+
+@21-11-2015
+{
+    * TODO: change helpers::encodeLog().
+    * TODO: create table to log the sequence of answers. DONE @27-11-2015
+    * TODO: create table for question tags and test tags.
+}
+@27-11-2015
+{
+    * TODO: Save each video and image of a submitted question on the proper
+         database, but do that function async
+    * DONE: created table to log the sequence of answers.
+        Table questionsAnswersLog shares testAnswerId with testsAnswersLogs
 }

@@ -6,7 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
  *			?page= page for pagination, ?view= results per page.
  *		[2] Retriever::retrieveTest();
  *		[3] Retriever::retrieveTags();
- *
+ *		[4] Watchers::watchTestAnswering();
  */
 	$action = (!empty($_GET['action'])) ? $_GET['action'] : null; 
 	if($action == 1)
@@ -38,6 +38,11 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
 		$tags      = thePost('tags');
 		$retriever = new Retriever();
 		echo json_encode($retriever->retrieverTags($tags));
+	}
+	else if($action == 4)
+	{
+		$watchers = new Watchers();
+		var_dump($watchers->watchTestAnswering());
 	}
 
 ?>

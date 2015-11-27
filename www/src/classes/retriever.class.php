@@ -15,12 +15,13 @@ class Retriever
 	/**
 	 * Retrieves questions from pp_questions. All params are WHERE filters.
 	 * @uses Database::
-	 * @param $tags Tags filter
-	 * @param $diff Difficulty filter
-	 * @param $questionkey question that will be returned
+	 * @param $tags string Tags filter
+	 * @param $diff int Difficulty filter
+	 * @param $id int question that will be returned
+	 * @param $textOnly bool
 	 * @return $questions Object
 	 */
-	public function retrieveQuestion($tags = null, $diff = null, $id = null)
+	public function retrieveQuestion($tags = null, $diff = null, $id = null, $textOnly = false)
 	{
 		$db   = Conectar();
 		if($id === null)
@@ -95,14 +96,16 @@ class Retriever
 
 			/** THE QUERY **/
 			$tb   = DB_PREFIX . "questions";
-			$sql  = "SELECT * FROM $tb $where";
+			$fields = (!$textOnly) ? "*" : "body, answers";
+			$sql  = "SELECT $fields FROM $tb $where";
 			$data = $db->query($sql)->fetch();
 		}
 		else
 		{
 			$id   = escape($id);
 			$tb   = DB_PREFIX . "questions";
-			$sql  = "SELECT * FROM $tb WHERE id = '$id' LIMIT 1";
+			$fields = (!$textOnly) ? "*" : "body, answers";
+			$sql  = "SELECT $fields FROM $tb WHERE id = '$id' LIMIT 1";
 			$data = $db->query($sql)->fetch();
 		}
 		unset($db);
@@ -112,9 +115,9 @@ class Retriever
 	/**
 	 * Retrieve tests from pp_tests. All params are filters
 	 * @uses Database::
-	 * @param $tags Tags filter
-	 * @param $diff Difficulty filter
-	 * @param $listkey List that will returned
+	 * @param string $tags Tags filter
+	 * @param int $diff Difficulty filter
+	 * @param string $listkey List that will returned
 	 * @return $data Object with retrieved lists.
 	 */
 	public function retrieveTest($tags = null, $diff = null, $listkey = null)
@@ -210,8 +213,8 @@ class Retriever
 	/**
 	 * Retrieves all tags from pp_tags
 	 * @uses Database:
-	 * @param $tag a specific tag to look for.
-	 * @return $data('tag' => numberOfQuestions ) with all tags;
+	 * @param $tags string a specific tag to look for.
+	 * @return array $data('tag' => numberOfQuestions ) with all tags;
 	 */
 	public function retrieveTags($tags = null)
 	{

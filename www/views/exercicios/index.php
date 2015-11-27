@@ -16,13 +16,13 @@ $watcher->initTest();
 	<?php 
 		require_once(DIR_PARTIALS . "nav.php");
 		echo "<pre>";
-		$watcher->watchTestAnswering();
+		$resposta = $watcher->watchTestAnswering();
+		print_r($resposta);
 		$debug = new Doer();
 		$debug->fromJson($_SESSION['theDoer']);
+		//print_r($_SESSION);
 		print_r($debug);
 		echo "</pre>";
-		//$doer = new Doer();
 	?>
-
 </body>
 </html>

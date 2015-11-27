@@ -20,13 +20,13 @@ class Login extends User
 	/**
 	* Check if login credentials are right
 	* @uses User:: for setting the user if it does
-	* @return Set session with $this->setLogin() or return false.
+	* @return bool(false) or set session with $this->setLogin() or return false.
 	 */
 	public function tryLogin()
 	{
 		$db     = Conectar();
 		$tb     = "users";
-		$select = 'name, email, username, userkey, registred, type';
+		$select = 'name, email, username, userkey, registered, type';
 		$where  = array(
 				"username" => $this->user,
 				"password" => $this->pass,
@@ -47,6 +47,7 @@ class Login extends User
 
 	/**
 	* Set the session
+	* @param array $data the user data to set on $_SESSION
 	* @return bool(true) if logged, bool(false) if not.
 	 */
 	private function setLogin($data = null)
@@ -65,4 +66,3 @@ class Login extends User
 		}
 	}
 }
-?>
