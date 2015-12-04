@@ -169,10 +169,13 @@
 		public function doTest($qnumber, $answer)
 		{
 			$qnumber   = $qnumber - 1;
-			if(array_key_exists($qnumber,$this->theObjectives) &&
-					($answer == "alt-1" || $answer == "alt-2" ||
-							$answer == "alt-3" || $answer == "alt-4"
-							|| $answer == "alt-5"))
+			if(($answer == "alt-5"
+                    || $answer == "alt-1"
+                    || $answer == "alt-2"
+                    || $answer == "alt-3"
+                    || $answer == "alt-4")
+					&& array_key_exists($qnumber,$this->theObjectives)
+			)
 			{
 				$qid       = $this->theObjectives[$qnumber];
 				$completed = $this->completedObjectives[$qid]['completed'];
@@ -226,36 +229,51 @@
 		}
 
 		/**
-		 * Inserts log on pp_logs
+		 * Inserts log on pp_logs. First on testsAnswersLog, then on questionsAnswersLog.
 		 * WILL BE CHANGED
 		 */
 		private function logHonor()
 		{
-/*			if($this->hasHonor)
+			if($this->hasHonor)
 			{
 				$db = Conectar();
-				// Deve inserir primeiro tabela em testanswerslog, registrar o id no campo testanswersid
-				$data = array(
-							'listid' => $this->theTask['listkey']
-				);
-				foreach($this->completedObjectives as $qid => $arr)
+				$tb = DB_PREFIX . 'testsanswerslog';
+				$qtb = DB_PREFIX . 'questionsanswerslog';
+				$questionsTime = array();
+				/** CALCULATES TOTAL TEST TIME **/
+				$testTime = date_create('00:00:00');
+				foreach ($this->completedObjectives as $completedObjective)
 				{
-					$attempts = explode(',', $arr['sequence'], 5);
-					foreach($attempts as $key => $attempt)
+					/** TIME OF EACH QUESTION */
+					$startedTime   = date_create($completedObjective['startedTime']);
+					$completedTime = date_create($completedObjective['completedTime']);
+					$interval      = date_diff($startedTime, $completedTime);
+					$testTime      = date_add($testTime, $interval);
+					array_push($questionsTime, $interval);
+				}
+				$data = array(
+							'listId' => $this->theTask['listkey'],
+							'userId' => $this->theDoer,
+							'time'   => $testTime->format('H:i:s')
+				);
+				$id = $db->insert($tb, $data);
+				foreach ($questionsTime as $key => $value)
+				{
+					$qid = $this->theObjectives[$key];
+					$sequence = explode(',', $this->completedObjectives[$qid]['sequence']);
+					foreach ($sequence as $attempt => $alternative)
 					{
 						$data = array(
-								'questionId' => $qid,
-								'userkey' => $this->theDoer,
-								'attempt' => ($key+1),
-								'answer'  => $attempt,
-								'testanswersid' => $id,
+									'questionId'    => $qid,
+									'attempt'       => ($attempt+1),
+									'answer'        => $alternative,
+									'testanswersid' => $id,
+									'questionTime'  => $value->format('%H:%I:%s')
 						);
-						print_r($data);
-						echo "<br><br>";
-						$db->insert(DB_PREFIX . 'questionsanswerslogs', $data);
+						$db->insert($qtb, $data);
 					}
 				}
-			}*/
+			}
 		}
 
 		/**

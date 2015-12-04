@@ -41,10 +41,10 @@
 @28-10-2015
 {
 	* Question insert finished. A new function was added to helpers.php, checking if 
-	* the post attemp is the first of it's kind.
+	* the post attempt is the first of it's kind.
 	* Retriever class development started.
 	* TODO: Improve the pp_list fields max size. Shall be discussed.
-	* TODO: Add registred(DATE), modified(DATA) field on pp_lists, pp_questions.
+	* TODO: Add registered(DATE), modified(DATA) field on pp_lists, pp_questions.
 }
 
 @02-11-2015
@@ -82,7 +82,7 @@
 @27-11-2015
 {
     * TODO: Save each video and image of a submitted question on the proper
-         database, but do that function async
+         table, but do that function async
     * DONE: created table to log the sequence of answers.
         Table questionsAnswersLog shares testAnswerId with testsAnswersLogs
 }

@@ -101,37 +101,6 @@
 	}
 
 	/**
-	 * Encodes the $doer->completedObjectives array to a string
-	 * 40:alt-3,alt-2,alt-1(05:30)
-	 * @param the array the Objectives
-	 * @return string questionNumber:alt-3,alt-4,alt-5(05:30); [...]
-	 */
-	function encodeLog($arr)
-	{
-		if(!is_array($arr) || empty($arr))
-		{
-			return false;
-		}
-		else
-		{
-			foreach($arr as $key => $value)
-			{
-				if(!array_key_exists("sequence", $value) || !array_key_exists("time", $value) || empty($value['sequence']) || empty($value['time']))
-				{
-					return false;
-				}
-			}
-			$encoded = "";
-			foreach($arr as $key => $value)
-			{
-				$encoded .= $key . ":" . $value['sequence'] . "(" . $value['time'] . ");";
-			}
-			return $encoded;
-		}
-
-	}
-
-	/**
 	* Generates a userkey.
 	 */
 	function generateKey()
@@ -188,4 +157,5 @@
 				return true;
 			}
 		}
+		return null;
 	}

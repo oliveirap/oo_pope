@@ -196,15 +196,12 @@ class Watchers
 	 */
 	public function watchTestAnswering()
 	{
-		if(!empty($_SESSION['theDoer']))
+		if(!empty($_SESSION['theDoer']) && !empty($_GET['aid']))
 		{
 			$doer = new Doer();
 			$doer->fromJson($_SESSION['theDoer']);
-			if(!empty($_GET['aid']))
-			{
-				$aid = $_GET['aid'];
-				return($doer->doTest($doer->currentQuestion, $aid));
-			}
+			$aid = $_GET['aid'];
+			return($doer->doTest($doer->currentQuestion, $aid));
 		}
 		return null;
 	}
