@@ -3,7 +3,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
 $watcher = new Watchers();
 $watcher->userOnly();
 $watcher->watchLogout();
-//$watcher->initTest();
+$watcher->initTest();
 ?>
 <!DOCTYPE html>
 <html lang="en">

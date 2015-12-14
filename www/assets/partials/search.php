@@ -42,7 +42,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/oo_pope/www/system.php");
 	else if($action == 4)
 	{
 		$watchers = new Watchers();
-		var_dump($watchers->watchTestAnswering());
+		echo json_encode($watchers->watchTestAnswering());
 	}
 
 ?>
